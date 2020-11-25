@@ -1,0 +1,26 @@
+---
+- name: ensure the jenkins apt repository key is installed
+  apt_key: 
+    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    state: present
+
+- name: ensure the repository is configured
+  apt_repository: 
+    repo: 'deb https://pkg.jenkins.io/debian-stable binary/' 
+    state: present
+  register: jenkins_repo
+
+- name: ensure jenkins is installed
+  apt: update_cache=yes
+  when: jenkins_repo.changed
+  tags: ['skip_ansible_lint']
+
+- name: ensure jenkins is running
+  service: 
+    name: jenkins 
+    state: started
+
+- name: Enable service jenkins
+  systemd:
+    name: jenkins
+    enabled: yes

@@ -1,0 +1,13 @@
+---
+- name: Update APT package manager repositories cache
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install OpenJDK Java
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    default-jdk

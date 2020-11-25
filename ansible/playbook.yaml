@@ -1,0 +1,51 @@
+####### FOR GIT SERVER #######
+
+---
+- hosts: git_server
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - git-server
+    - common
+
+####### FOR NODEJSAPP SERVER #######
+
+# Frontend
+- hosts: nodejsapp_frontend
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - common
+    - nginx-common
+    - nginx-nodejsapp
+
+# Backend
+- hosts: nodejsapp_backend
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - common
+    - nodejs-common
+
+####### FOR JENKINS SERVER #######
+- hosts: jenkins_server
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - common
+    - nodejs-common
+    - java-common
+    - jenkins-server
+
+####### FOR TEST SERVER #######
+# - hosts: test_server
+#   remote_user: vagrant
+#   become: yes
+
+#   roles:
+#     - java-common
+#     - jenkins-server

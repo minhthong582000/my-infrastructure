@@ -1,0 +1,29 @@
+---
+- name: Install Packages
+  apt:
+    state: present
+    name:
+      - git
+      - acl
+
+- name: Git user
+  user:
+    name: git
+    shell: /bin/bash
+
+- name: Keys allowed to use git
+  authorized_key:
+    user: git
+    state: present
+    key: '{{ item }}'
+  with_file:
+    - ssh-keys/local_webserver
+
+- name: Create Repositories
+  command: "{{ 'git init --bare  /home/git/repos/' + item + '.git' }}"
+  become_user: git
+  args:
+    creates: "{{ '/home/git/repos/' + item + '.git/HEAD' }}"
+  loop:
+    - repo1
+    - repo2

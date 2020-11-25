@@ -1,0 +1,3 @@
+---
+docroot: /var/www/nodejs.sircorp.local
+server_name: nodejs.sircorp.local

@@ -1,0 +1,21 @@
+---
+-   name: Configure nginx
+    hosts: devops
+    become: yes
+
+    tasks:
+        - name: Install nginx
+          apt:
+              name: nginx
+              state: latest
+        - name: Make sure nginx is running
+          service:
+              name: nginx
+              enabled: true
+              state: started
+
+        - name: copy config
+          copy:
+              src: example.com
+              dest: /etc/nginx/sites-enabled/example.com
+

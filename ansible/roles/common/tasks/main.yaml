@@ -1,0 +1,8 @@
+---
+- name: Install common packages for all Machines
+  apt:
+    pkg:
+      - vim
+      - git
+      - curl
+    state: present

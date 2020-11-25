@@ -1,0 +1,16 @@
+[git_server]
+192.168.33.16
+
+[nodejsapp_frontend]
+192.168.33.20
+
+[nodejsapp_backend]
+192.168.33.21
+192.168.33.22
+
+[jenkins_server]
+192.168.33.30
+
+[git_server:vars]
+ansible_ssh_common_args='-o IdentitiesOnly=yes'
+ansible_ssh_private_key_file=~/.ssh/local_webserver     

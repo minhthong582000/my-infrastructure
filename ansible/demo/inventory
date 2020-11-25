@@ -1,0 +1,7 @@
+[devops]
+192.168.56.101
+
+[devops:vars]
+ansible_ssh_common_args='-o IdentitiesOnly=yes'
+ansible_ssh_user=devops
+ansible_ssh_private_key_file=~/.ssh/local_webserver
