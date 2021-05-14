@@ -1,0 +1,22 @@
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "generic/ubuntu2004"
+  
+    # The git-server VM
+    config.vm.define "nfs_server" do |nfs_server|
+        nfs_server.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+      end
+  
+      nfs_server.vm.network "private_network", ip: "172.16.16.10"
+      nfs_server.vm.hostname = "nfs-server"
+  
+      nfs_server.vm.provision "shell", inline: <<-SHELL
+        echo "Adding SSH key"
+        echo 'ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBAHNUsZ23mERcgKAI5EDkaO3QSvHO7tqMZszgfflqaQo5XJLMuJyOiWoPia6Gbnl7E1J4DK6dI2zvryqaX9eQ7K1JQBJeb93BODPMgTzKS6BEFcS4890wMTlLKTTe/ksPoH9ILtFnfxGvXaoPow83Atd7emd/7kcmcO+E9mgbuW7QDoTvA==' >> /home/vagrant/.ssh/authorized_keys
+      SHELL
+    end
+  
+  end
+  
