@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+  #   ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /apple
+        pathType: Prefix
+        backend:
+          service:
+            name: apple-service
+            port:
+              number: 5678
+      - path: /banana
+        pathType: Prefix
+        backend:
+          service:
+            name: banana-service
+            port:
+              number: 5678
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
